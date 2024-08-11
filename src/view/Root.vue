@@ -1,76 +1,63 @@
 <template>
-  <el-card style="width: 1000px ;padding: 15px ;height:540px;margin: auto">
-    <div style="border-color: #333333">
-      <el-row >
-        <el-col :span="6">
-          <div class="bb left">
+  <el-card style="width: 100%; height: 100vh; padding: 0; margin: auto;">
+    <div style="display: flex; height: 100%;">
 
-            <el-row class="tac">
-              <el-col :span="12">
-
-                <div style="padding-top: 10px ;padding-bottom:10px;background-color: #dbe0e7 ;width: 238px">
-                  <el-row :gutter="10">
-                    <el-col :span="10">
-                      <div id="user"></div>
-                    </el-col >
-                    <el-col :span="14" >
-                      <div style="height: 10px;width: 10px;padding-top: 50px;">
-                        {{username}}
-                      </div>
-                    </el-col>
-                  </el-row>
-                </div>
-
-                <el-menu
-                  :router="true"
-                  default-active="2"
-                  class="el-menu-vertical-demo"
-                  @open="handleOpen"
-                  @close="handleClose" style="width:237px">
-
-                  <el-submenu index="1">
-                    <template slot="title">
-                      <i class="el-icon-location"></i>
-                      <span>管理航班</span>
-                    </template>
-                    <el-menu-item-group >
-                      <el-menu-item index="/addPlane">添加航班</el-menu-item>
-                      <el-menu-item index="/deletePlane">取消航班</el-menu-item>
-                    </el-menu-item-group>
-                  </el-submenu>
-
-                  <el-menu-item index="dealSearch" >
-                    <i class="el-icon-document"></i>
-                    <span slot="title">订单查询</span>
-                  </el-menu-item>
-
-
-                </el-menu>
+      <!-- 长条滑动边栏 -->
+      <transition name="slide">
+        <div v-if="isSidebarVisible" class="sidebar">
+          <div class="sidebar-content">
+            <el-row class="user-section">
+              <el-col :span="8">
+                <div id="user"></div>
+              </el-col>
+              <el-col :span="16">
+                <div class="username">{{ username }}</div>
               </el-col>
             </el-row>
 
-          </div>
-        </el-col>
+            <el-menu
+              :router="true"
+              default-active="2"
+              class="el-menu-vertical-demo"
+              @open="handleOpen"
+              @close="handleClose">
+              <el-submenu index="1">
+                <template slot="title">
+                  <i class="el-icon-location"></i>
+                  <span>管理航班</span>
+                </template>
+                <el-menu-item-group>
+                  <el-menu-item index="/addPlane">添加航班</el-menu-item>
+                  <el-menu-item index="/deletePlane">取消航班</el-menu-item>
+                </el-menu-item-group>
+              </el-submenu>
 
-        <el-col :span="18">
-          <div class="bb right">
-            <router-view></router-view>
+              <el-menu-item index="dealSearch">
+                <i class="el-icon-document"></i>
+                <span slot="title">订单查询</span>
+              </el-menu-item>
+            </el-menu>
           </div>
-        </el-col>
+        </div>
+      </transition>
 
-      </el-row>
+      <!-- 主内容区 -->
+      <el-col :span="isSidebarVisible ? 18 : 24" class="main-content">
+        <el-button icon="el-icon-menu" @click="toggleSidebar" class="toggle-btn"></el-button>
+        <router-view></router-view>
+      </el-col>
 
     </div>
-
   </el-card>
 </template>
 
 <script>
 export default {
   name: "Root",
-  data(){
-    return{
-      username:sessionStorage.getItem("username")
+  data() {
+    return {
+      username: sessionStorage.getItem("username"),
+      isSidebarVisible: true,
     }
   },
   methods: {
@@ -79,33 +66,101 @@ export default {
     },
     handleClose(key, keyPath) {
       console.log(key, keyPath);
+    },
+    toggleSidebar() {
+      this.isSidebarVisible = !this.isSidebarVisible;
     }
   }
 }
 </script>
 
 <style scoped>
-.bb{
-  height: 500px;
-  border-left: solid 2px  #7f91a4;
-  border-top: solid 1px  #7f91a4;
-  border-bottom: solid 1px  #7f91a4;
+.slide-enter-active, .slide-leave-active {
+  transition: all 0.3s ease;
 }
-.left{
-  /*background-color: #7f91a4;*/
-  background-color: #ffffff;
-  width: 300px;
+.slide-enter, .slide-leave-to /* .slide-leave-active in <2.1.8 */ {
+  transform: translateX(-100%);
 }
-.right{
-  background-color: #f7f7fa;
-  width: 720px;
-  border-right: solid 1px  #7f91a4;
+
+.sidebar {
+  width: 250px;
+  background-color: #f0f2f5; /* 浅色背景 */
+  padding: 20px;
+  height: 100vh; /* 铺满整个左侧 */
+  position: relative;
+  border-right: 1px solid #dcdfe6;
 }
-#user{
-  margin: 10px;
-  height: 80px;
-  width: 80px;
+
+.sidebar-content {
+  padding-top: 20px;
+}
+
+.user-section {
+  margin-bottom: 20px;
+}
+
+#user {
+  height: 60px;
+  width: 60px;
   background-image: url("https://static.thenounproject.com/png/5105250-200.png");
-  background-size: 100% 100%;
+  background-size: cover;
+  border-radius: 50%;
+}
+
+.username {
+  color: #606266; /* 深灰色字体 */
+  font-size: 16px;
+  padding-top: 20px;
+}
+
+.el-menu-vertical-demo {
+  background-color: transparent;
+  color: #606266; /* 调整文字颜色 */
+}
+
+.el-menu-item, .el-submenu__title {
+  color: #606266;
+}
+
+.el-menu-item:hover, .el-submenu__title:hover {
+  background-color: #e4e7ed;
+}
+
+.main-content {
+  background-color: #ffffff;
+  height: 100%;
+  padding: 20px;
+}
+
+.toggle-btn {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 10;
+  background-color: #e6edf7; /* 浅色背景 */
+  color: #606266; /* 图标颜色 */
+  border: none;
+  border-radius: 50%; /* 圆形按钮 */
+  padding: 15px; /* 调整按钮大小 */
+  transition: background-color 0.3s, transform 0.3s; /* 动态效果 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 添加阴影 */
+}
+
+.toggle-btn:hover {
+  background-color: #d0d9e8; /* 悬浮时背景颜色 */
+  transform: scale(1.1); /* 悬浮时放大效果 */
+  cursor: pointer; /* 鼠标悬停时变成指针 */
+}
+
+.toggle-btn i {
+  font-size: 24px; /* 图标大小，覆盖整个按钮 */
+}
+
+
+.toggle-btn:hover {
+  background-color: #dcdfe6;
 }
 </style>
