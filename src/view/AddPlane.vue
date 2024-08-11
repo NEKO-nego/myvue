@@ -43,19 +43,17 @@
 
       </el-row>
 
-      <div style="margin: 20px;width: auto;height: 1px;background-color: #cacfda "></div>
+      
 
-      <div style="text-align: center;margin-top: 15px;margin-bottom: 15px;margin-left: 81px">
-        <el-button type="primary" @click="addTicket()" style="background-color: #8d9fb7 ;border-color: #8d9fb7">添加一种机票类型</el-button>
-        <el-button type="primary" @click="delTicket()" style="background-color: #8d9fb7 ;border-color: #8d9fb7">减少一种机票类型</el-button>
-      </div>
 
       <div v-for="(ticket,index) in info.tickets" :key="index">
         <ticket :index="index" :tickets="info.tickets"> </ticket>
       </div>
 
+      <div style="margin: 20px;width: auto;height: 1px;background-color: #66ccff "></div>
+
       <el-form-item>
-        <el-button type="primary" @click="onSubmit" style="background-color: #8d9fb7 ;border-color: #8d9fb7">添加</el-button>
+        <el-button  type="primary" @click="onSubmit" style=" border-color: #8d9fb7">添加</el-button>
       </el-form-item>
 
     </el-form>
@@ -64,15 +62,14 @@
 
 <script>
 import axios from "axios";
-
 const reg_ticket_number=/^([1-9]|[1-9][0-9]|100)$/
 const reg_ticket_count=/^([1-9]|[1-9][0-9]|[1][0-9][0-9]|200)$/
 const reg_charater=/[\u4e00-\u9fa5]{1,10}/
 const reg_price=/^([1-9]|[1-9][0-9]|[1-9][0-9][0-9]|[1-9][0-9][0-9][0-9]|10000)$/
 export default {
+  
   name: "addPlane",
   data() {
-
     return {
       labelPosition: 'right',
       info: {
@@ -190,10 +187,10 @@ export default {
 </script>
 
 <style scoped>
+@import '../assets/css/button.css';
 #addPlane{
   width: auto;
   height: 498px;
   overflow: auto;
 }
-
 </style>
