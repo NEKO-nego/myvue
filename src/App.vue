@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <el-container>
-      <el-header>
+      <el-header v-if="!isLoginPage">
         <el-row>
           <el-col :span="1">
             <div id="header-img" @click="getPerson"></div>
@@ -29,7 +29,8 @@ export default {
   data(){
     return{
       circleUrl: "https://static.thenounproject.com/png/5113066-200.png",
-      person:Login
+      person:Login,
+      isLoginPage: false
     }
   },
   created() {
@@ -55,6 +56,11 @@ export default {
 
     },search(){
         this.$router.push({path: '/search'});
+    }
+  },
+  watch: {
+    '$route'(to) {
+      this.isLoginPage = to.path === '/login'; // 根据路由变化更新标识符
     }
   }
 }
