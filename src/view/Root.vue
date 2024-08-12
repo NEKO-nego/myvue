@@ -42,10 +42,7 @@
       </transition>
 
       <!-- 主内容区 -->
-      <div>
-      <el-button icon="el-icon-menu" @click="toggleSidebar" class="toggle-btn">
-      </el-button>
-      </div>
+       
       <el-col :span="isSidebarVisible ? 24 : 30" class="main-content">       
         <router-view></router-view>
       </el-col>
@@ -79,7 +76,9 @@ export default {
 </script>
 
 <style scoped>
-
+.el-card{
+  overflow: auto;
+}
 .slide-enter-active, .slide-leave-active {
   transition: all 0.3s ease;
 }
