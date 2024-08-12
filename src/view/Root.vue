@@ -1,5 +1,5 @@
 <template>
-  <el-card style="width: 100%; height: 100vh; padding: 0; margin: auto;">
+  <el-card style="width: 100%; height: 100vh; padding: 20; margin: auto;">
     <div style="display: flex; height: 100%;">
 
       <!-- 长条滑动边栏 -->
@@ -42,13 +42,17 @@
       </transition>
 
       <!-- 主内容区 -->
-      <el-col :span="isSidebarVisible ? 18 : 24" class="main-content">
-        <el-button icon="el-icon-menu" @click="toggleSidebar" class="toggle-btn"></el-button>
+      <div>
+      <el-button icon="el-icon-menu" @click="toggleSidebar" class="toggle-btn">
+      </el-button>
+      </div>
+      <el-col :span="isSidebarVisible ? 24 : 30" class="main-content">       
         <router-view></router-view>
       </el-col>
-
+      
     </div>
   </el-card>
+  
 </template>
 
 <script>
@@ -75,6 +79,7 @@ export default {
 </script>
 
 <style scoped>
+
 .slide-enter-active, .slide-leave-active {
   transition: all 0.3s ease;
 }
@@ -133,10 +138,10 @@ export default {
 }
 
 .toggle-btn {
-  position: absolute;
+  position: relative;
   top: 20px;
   left: 20px;
-  z-index: 10;
+  z-index: 10000;
   background-color: #e6edf7; /* 浅色背景 */
   color: #606266; /* 图标颜色 */
   border: none;
@@ -156,7 +161,7 @@ export default {
 }
 
 .toggle-btn i {
-  font-size: 24px; /* 图标大小，覆盖整个按钮 */
+  font-size: 40px; /* 图标大小，覆盖整个按钮 */
 }
 
 
