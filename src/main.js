@@ -8,7 +8,7 @@ import router from './router/all-router'
 import 'element-ui/lib/theme-chalk/index.css'
 import 'element-ui/lib/index.js'
 import axios from 'axios'
-
+import './assets/css/main.css';
 
 Vue.config.productionTip = false
 Vue.use(router)

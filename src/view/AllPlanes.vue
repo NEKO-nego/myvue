@@ -109,7 +109,5 @@ export default {
   background-size: 100% 100%;
   background-image: url("https://static.thenounproject.com/png/5109422-200.png");
 }
-.col{
-  /*background-color: #cac6c6;*/
-}
+
 </style>
