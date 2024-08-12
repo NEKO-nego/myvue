@@ -9,7 +9,7 @@
       label-width="0px"
       class="demo-ruleForm login-page"
     >
-      <h3 class="title">登录</h3>
+      <h3 class="title" style="text-align: center">机票售卖系统</h3>
       <el-form-item prop="username">
         <el-input
           type="text"
@@ -29,7 +29,7 @@
       <el-form-item style="width: 100%">
         <el-button
           type="info"
-          style="width: 100% ;background-color: #8d9fb7 ;border-color: #8d9fb7  "
+          style="width: 100%  ;border-color: #8d9fb7  "
           @click="handleSubmit"
           :loading="logining"
         >登录</el-button>
@@ -131,6 +131,7 @@ export default {
 
 
 <style scoped>
+@import '../assets/css/main.css';
 .login-container {
   width: 100%;
   height: 100%;
