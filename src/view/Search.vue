@@ -5,31 +5,32 @@
     </div>
 
     <div class="box-box">
-      <el-card  class="box-card2">
-        <el-row :gutter="20" >
-          <el-col :span="9"><div class="city1">
-            <label class="city-l" v-model="cities.input1">{{cities.input1}}</label>
-          </div></el-col>
-          <el-col :span="6"><div class="from">
-            <label>=========></label>
-          </div></el-col>
-          <el-col :span="9"><div class="city1">
-            <label class="city-l" v-model="cities.input2">{{cities.input2}}</label>
-          </div></el-col>
-        </el-row>
+      <el-card class="box-card2">
+        <el-form :model="cities" ref="cities">
+          <el-row :gutter="20">
 
-        <el-form :model="cities" ref="cities" >
-        <el-row :gutter="20" >
-          <el-col :span="9"><div class="city2">
-              <el-input :rules="rules" class="ipt" v-model="cities.input1" placeholder="请输入出发地"></el-input>
-          </div></el-col>
-          <el-col :span="6"><div class="from">
-            <label></label>
-          </div></el-col>
-          <el-col :span="9"><div class="city2">
-              <el-input :rules="rules" class="ipt" v-model="cities.input2" placeholder="请输入出发地"></el-input>
-          </div></el-col>
-        </el-row>
+            <el-col :span="9">
+              <div class="city2">
+                <el-input :rules="rules" class="ipt" v-model="cities.input1" placeholder="请输入出发地"></el-input>
+              </div>
+            </el-col>
+
+            <el-col :span="6">
+              <div class="from">
+                <el-button 
+                  class="custom-button"
+                  type="primary" icon="el-icon-refresh" @click="swapCities">
+                </el-button>
+              </div>
+            </el-col>
+
+            <el-col :span="9">
+              <div class="city2">
+                <el-input :rules="rules" class="ipt" v-model="cities.input2" placeholder="请输入目的地"></el-input>
+              </div>
+            </el-col>
+
+          </el-row>
         </el-form>
       </el-card>
     </div>
@@ -42,7 +43,7 @@
         placeholder="选择日期" :picker-options="pickerOptions">
       </el-date-picker>
 
-      <el-button style="background-color: #8d9fb7 ;border-color: #8d9fb7" id="search" type="info" @click="searchHandler">查询</el-button>
+      <el-button style="border-color: #8d9fb7" id="search" type="info" @click="searchHandler">查询</el-button>
     </div>
 
 
@@ -96,7 +97,12 @@ export default {
           return false;
         }
       })
-    }
+    },
+    swapCities() {
+      const temp = this.cities.input1;
+      this.cities.input1 = this.cities.input2;
+      this.cities.input2 = temp;
+    },
 
   }
 }
@@ -134,8 +140,22 @@ export default {
 
 .box-card2 {
   width: 580px;
-  height: 300px;
+  height: 100px;
   margin: auto;
+}
+.custom-button {
+  border-radius: 12px; /* 圆角 */
+  padding: 15px 30px; /* 增大尺寸 */
+  background-color: #ffffff; /* 平时是浅白色 */
+  color: #333; /* 文字颜色 */
+  
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 阴影效果 */
+  transition: background-color 0.3s, box-shadow 0.3s; /* 悬浮效果的过渡 */
+}
+
+.custom-button:hover {
+  background-color: #ededed; /* 悬浮是浅蓝色 */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* 悬浮时的阴影效果 */
 }
 
 .block{
@@ -160,12 +180,7 @@ export default {
   display: inline-block;
   height: 100px;
 }
-.from{
-  /*background-color: antiquewhite;*/
-  text-align: center;
-  height: 120px;
-  padding-top: 82%;
-}
+
 
 .ipt{
   padding-left: 10px;
