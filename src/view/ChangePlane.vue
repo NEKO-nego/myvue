@@ -5,14 +5,17 @@
     </div>
 
     <div class="box-box">
-      <el-card  class="box-card2">
-        <el-row :gutter="20" >
+      <el-card  class="box-card2" :body-style="{ width: '100%', height: '100%' }">
+        
+        <el-row :gutter="20" class="row-responsive" >
           <el-col :span="9"><div class="city1">
             <label class="city-l" >{{deal.tickets[index].plane.start_city}}</label>
           </div></el-col>
-          <el-col :span="6"><div class="from">
-            <label>=========></label>
-          </div></el-col>
+          <el-col :span="6">
+            <div class="from">
+              <label>to</label>
+            </div>
+          </el-col>
           <el-col :span="9"><div class="city1">
             <label class="city-l" >{{deal.tickets[index].plane.end_city}}</label>
           </div></el-col>
@@ -91,10 +94,12 @@ export default {
 
 .box-card2 {
   width: 580px;
-  height: 270px;
+  height: 150px;
   margin: auto;
 }
-
+.row-responsive {
+  width: 100%; /* 设置row宽度为100%，确保子元素根据父元素宽度调整 */
+}
 .block{
   margin-top: 28px;
   margin-right: 100px;
@@ -108,20 +113,21 @@ export default {
 .city1{
   /*background-color: #B3C0D1;*/
   font-size: 50px;
+  font-family: 'Times New Roman', Times, serif;
   text-align: center;
-  width: 200px;
-  height: 120px;
-  padding-top: 40%;
+  width: 100%;
+  height: 100%;
+  
 }
 .city-l{
   display: inline-block;
-  height: 100px;
+  height: 100%;
 }
 .from{
   /*background-color: antiquewhite;*/
   text-align: center;
-  height: 120px;
-  padding-top: 82%;
+  height: 100%;
+  font-size: 50px;
 }
 
 .ipt{
