@@ -211,16 +211,28 @@ export default {
             ticket_id:encodeURI(this.p.ticket_id),
             time:new Date().Format("yyyy-MM-dd hh:mm:ss")
           }
-        }).then((response)=> {
-          if(response.data){
-            this.$alert('支付成功', '信息', {
-              confirmButtonText: '确定'
-            });
-            this.$router.push({path:'/search'});
-          }
+        }).then((response) => {
+          console.log('Received form HTML:', response.data); // 输出表单 HTML,后端自动提交死活不行，直接传过来表单喂你嘴里如何呢老弟？
+
+          // 创建一个 div 元素，将表单 HTML 插入到 div 中
+          const div = document.createElement('div');
+          div.id = 'paymentDiv'; // 为 div 设置一个 ID，便于调试
+          div.style.display = 'none'; // 隐藏 div
+          div.innerHTML = response.data;
+          // 将 div 添加到文档的 body 中
+          document.body.appendChild(div);
+          console.log('Form appended to the body');
+          // 获取表单元素并提交
+          const form = div.querySelector('form');
+          if (form) {
+            form.submit(); // 提交表单
+            console.log('Form submitted');
+          } else {
+            console.error('Form not found in the appended HTML');
+        } 
         }).catch(function (error) {
-          console.log(error);
-        });
+        console.error('Error occurred:', error); // 输出错误信息
+    });
 
 
     }
