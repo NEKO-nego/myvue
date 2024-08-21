@@ -29,27 +29,34 @@
       <el-form-item style="width: 100%">
         <el-button
           type="info"
-          style="width: 100%  ;border-color: #8d9fb7  "
+          style="width: 100%  ;border-color: #8d9fb7"
           @click="handleSubmit"
           :loading="logining"
         >登录</el-button>
+      </el-form-item>
+      <el-form-item style="width: 100%">
+        <el-button
+          type="success"
+          style="width: 100%; margin-top: 10px"
+          @click="handleRegister"
+        >注册</el-button>
       </el-form-item>
     </el-form>
   </div>
 </template>
 
-<script>
 
+<script>
 import axios from "axios";
 
 export default {
   name: "login",
   data() {
     return {
-      suc:"",
+      suc: "",
       logining: false,
       ruleForm2: {
-        id:0,
+        id: 0,
         username: "",
         password: "",
       },
@@ -68,66 +75,100 @@ export default {
     };
   },
   methods: {
-    handleSubmit(){
+    handleSubmit() {
       this.$refs.ruleForm2.validate((valid) => {
-        if(valid){
+        if (valid) {
           this.logining = true;
-          axios.post('/login', {
-            data:{
-              name:encodeURI(this.ruleForm2.username),
-              pwd:encodeURI(this.ruleForm2.password)
-            }
-          }).then((response)=> {
-            this.suc=response.data;
-            console.log(response);
+          axios
+            .post("/login", {
+              data: {
+                name: encodeURI(this.ruleForm2.username),
+                pwd: encodeURI(this.ruleForm2.password),
+              },
+            })
+            .then((response) => {
+              this.suc = response.data;
+              console.log(response);
 
-            if(this.suc.id!=null&&this.suc.id==90000000){
-
-              this.logining = false;
-              sessionStorage.setItem('id', this.suc.id);
-              sessionStorage.setItem('username', this.ruleForm2.username);
-              sessionStorage.setItem('root',"1");
-              this.$alert('登录成功', '登录成功', {
-                confirmButtonText: 'ok'
-              })
-              console.log(sessionStorage.getItem("id"));
-              console.log(sessionStorage.getItem("root"));
-              this.$router.push({path: '/root'});
-
-            }else if(this.suc.id!=null){
-
-              this.logining = false;
-              sessionStorage.setItem('id', this.suc.id);
-              sessionStorage.setItem('username', this.ruleForm2.username);
-              sessionStorage.setItem('root',"0");
-              this.$alert('登录成功', '登录成功', {
-                confirmButtonText: 'ok'
-              })
-              console.log(sessionStorage.getItem("id"));
-              console.log(sessionStorage.getItem("root"));
-              this.$router.push({path: '/search'});
-
-            } else{
-              this.logining = false;
-              console.log(this.suc);
-              this.$alert('用户名或密码错误', '登录失败', {
-                confirmButtonText: 'ok'
-              })
-            }
-
-          }).catch(function (error) {
-            console.log(error);
-          });
-
-        }else{
-          console.log('error submit!');
+              if (this.suc.id != null && this.suc.id == 90000000) {
+                this.logining = false;
+                sessionStorage.setItem("id", this.suc.id);
+                sessionStorage.setItem("username", this.ruleForm2.username);
+                sessionStorage.setItem("root", "1");
+                this.$alert("登录成功", "登录成功", {
+                  confirmButtonText: "ok",
+                });
+                console.log(sessionStorage.getItem("id"));
+                console.log(sessionStorage.getItem("root"));
+                this.$router.push({ path: "/root" });
+              } else if (this.suc.id != null) {
+                this.logining = false;
+                sessionStorage.setItem("id", this.suc.id);
+                sessionStorage.setItem("username", this.ruleForm2.username);
+                sessionStorage.setItem("root", "0");
+                this.$alert("登录成功", "登录成功", {
+                  confirmButtonText: "ok",
+                });
+                console.log(sessionStorage.getItem("id"));
+                console.log(sessionStorage.getItem("root"));
+                this.$router.push({ path: "/search" });
+              } else {
+                this.logining = false;
+                console.log(this.suc);
+                this.$alert("用户名或密码错误", "登录失败", {
+                  confirmButtonText: "ok",
+                });
+              }
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+        } else {
+          console.log("error submit!");
           return false;
         }
-      })
-    }
+      });
+    },
+    handleRegister() {
+      this.$refs.ruleForm2.validate((valid) => {
+        if (valid) {
+          axios
+            .post("/addUser", {
+              data: {
+                name: encodeURI(this.ruleForm2.username),
+                pwd: encodeURI(this.ruleForm2.password),
+              },
+            })
+            .then((response) => {
+              console.log(response);
+              if (response.data == 1) {
+                this.$alert("注册成功", "注册成功", {
+                  confirmButtonText: "ok",
+                });
+                // 注册成功后，可以直接跳转到登录页或首页
+                this.$router.push({ path: "/login" });
+              } else {
+                this.$alert("注册失败", response.data.message || "注册失败", {
+                  confirmButtonText: "ok",
+                });
+              }
+            })
+            .catch((error) => {
+              console.log(error);
+              this.$alert("出现错误注册失败", "注册失败", {
+                confirmButtonText: "ok",
+              });
+            });
+        } else {
+          console.log("error submit!");
+          return false;
+        }
+      });
+    },
   },
 };
 </script>
+
 
 
 <style scoped>
