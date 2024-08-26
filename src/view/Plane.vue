@@ -79,18 +79,20 @@ export default {
   methods:{
     change(){
 
-      console.log(this.add_time);
+      console.log("add_time为：" + this.add_time);
       var bb=document.getElementById("change").innerText;
-      var head=this.add_time.substr(0,1);
+      var head=this.add_time.substring(0,1);
           if(bb==="北京时间"){
             this.planes.forEach((plane, index) => {this.$refs.allP[index].change_time(this.add_time);});
 
             document.getElementById("change").innerText="当地时间";
-
+            console.log("head 是" + head);
             if(head==='+'){
               this.add_time=this.add_time.replace(/[+]/,"-");
+              console.log('change_time called with:', add_time);
             }else if(head==='-'){
               this.add_time=this.add_time.replace(/-/,"+");
+              console.log('change_time called with:', add_time);
             }
 
           }else if(bb==="当地时间"){

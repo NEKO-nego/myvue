@@ -64,7 +64,7 @@ function time_transformation(t_day,t_time,add_time) {
 }
 
 Date.prototype.Format = function (fmt) {
-  var o = {
+  const o = {
     "M+": this.getMonth() + 1, // 月份
     "d+": this.getDate(), // 日
     "h+": this.getHours(), // 小时
@@ -73,12 +73,27 @@ Date.prototype.Format = function (fmt) {
     "q+": Math.floor((this.getMonth() + 3) / 3), // 季度
     "S": this.getMilliseconds() // 毫秒
   };
-  if (/(y+)/.test(fmt))
-    fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
-  for (var k in o)
-    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+
+  // 处理年份
+  if (/(y+)/.test(fmt)) {
+    const yearMatch = fmt.match(/(y+)/);
+    if (yearMatch) {
+      fmt = fmt.replace(yearMatch[0], (this.getFullYear() + "").substring(4 - yearMatch[0].length));
+    }
+  }
+
+  // 处理其他时间部分
+  for (const k in o) {
+    if (new RegExp(`(${k})`).test(fmt)) {
+      const match = fmt.match(new RegExp(`(${k})`));
+      if (match) {
+        fmt = fmt.replace(match[0], (match[0].length === 1) ? (o[k]) : (("00" + o[k]).substring(("" + o[k]).length)));
+      }
+    }
+  }
   return fmt;
-}
+};
+
 
 export default {
   props: ['message','buy'],
@@ -94,6 +109,10 @@ export default {
       this.$router.push({name:'Ticket'});
     },
     change_time(add_time){
+      var date=time_transformation(this.message.start_day,this.message.start_time,add_time);
+      this.message.start_day=date.Format("yyyy-MM-dd");
+      this.message.start_time=date.Format("hh:mm:ss");
+
       var date=time_transformation(this.message.end_day,this.message.end_time,add_time);
       this.message.end_day=date.Format("yyyy-MM-dd");
       this.message.end_time=date.Format("hh:mm:ss");
