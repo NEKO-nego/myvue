@@ -87,8 +87,9 @@ export default {
 }
 
 .sidebar {
+  border-radius: 5%;
   width: 250px;
-  background-color: #f0f2f5; /* 浅色背景 */
+  background-color: #ecfae4; /* 浅色背景 */
   padding: 20px;
   height: 100vh; /* 铺满整个左侧 */
   position: relative;
@@ -106,7 +107,7 @@ export default {
 #user {
   height: 60px;
   width: 60px;
-  background-image: url("https://static.thenounproject.com/png/5105250-200.png");
+  background-image: url("../image/man.png");
   background-size: cover;
   border-radius: 50%;
 }

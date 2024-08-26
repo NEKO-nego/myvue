@@ -87,14 +87,14 @@ text-align: center;
   margin-top:5px ;
   width: 50px;
   height: 50px;
-  background-image: url("https://static.thenounproject.com/png/5105250-200.png");
+  background-image: url("./image/Home.svg");
   background-size: 100% 100%;
 }
 #search-img{
   margin-top:10px ;
   width: 40px;
   height: 40px;
-  background-image: url("https://static.thenounproject.com/png/4648873-200.png");
+  background-image: url("./image/search.svg");
   background-size: 100% 100%;
 }
 
