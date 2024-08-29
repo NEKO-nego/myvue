@@ -11,15 +11,15 @@
       </el-col>
 
       <el-col class="cols" :span="5">
-        <span style="font-size: 10px">&nbsp;  {{ticket.coun/10}}折    {{ticket.level}}</span>
+        <span style="font-size: 5%">&nbsp;  {{ticket.coun/10}}折    {{ticket.level}}</span>
       </el-col>
 
       <el-col class="cols" :span="4">
-        <span style="font-size: 4px">余票:  {{ticket.number_rest}}  张</span>
+        <span style="font-size: 5%">余票:  {{ticket.number_rest}}  张</span>
       </el-col>
 
       <el-col class="cols" :span="3">
-        <span ><el-button style="background-color: #8d9fb7 ;border-color: #8d9fb7" type="info" @click="change(deal,plane,ticket,index)">预订</el-button></span>
+        <span ><el-button style="border-color: #8d9fb7" type="info" @click="change(deal,plane,ticket,index)">预订</el-button></span>
       </el-col>
 
     </el-row>

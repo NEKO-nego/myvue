@@ -62,7 +62,7 @@ export default {
           plane_id:plane_id
         }
       }).then((response)=> {
-
+        console.log("/cancelPlaneRecord返回的条件是"+response.data);
       }).catch(function (error) {
         console.log(error);
       });
@@ -71,6 +71,7 @@ export default {
           plane_id:plane_id
         }
       }).then((response)=> {
+        console.log("/cancelPlane返回的条件是"+response.data);
         if(response.data){
           this.$alert('取消成功', '信息', {
             confirmButtonText: '确定'

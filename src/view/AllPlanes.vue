@@ -16,8 +16,8 @@
     </el-col>
 
     <el-col class="col" :span="2">
-      <span >
-        -------
+      <span>
+            <img src="../image/bow.svg"  style="width: 100%; height: auto;">
       </span>
     </el-col>
 
