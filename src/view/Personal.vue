@@ -101,10 +101,16 @@ export default {
 }
 
 .left {
-  background-color: #f0f2f5; /* 浅色背景 */
+  
+  border-radius: 5%;
   width: 250px;
+
+  background-color: #edfbfb; /* 浅色背景 */
   padding: 20px;
+  height: 100vh; /* 铺满整个左侧 */
+  position: relative;
   border-right: 1px solid #dcdfe6;
+
 }
 
 .right {

@@ -18,7 +18,7 @@
         </el-form-item>
 
       </el-form>
-      <el-button style="float: right; padding: 14px ;font-size: 12px" type="text" slot="reference">添加乘客信息</el-button>
+      <el-button style="float: right; padding: 10px ;font-size: 100%" type="text" slot="reference">添加乘客信息</el-button>
     </el-popover>
 
     <div style="margin-top: 45px;margin-bottom: 10px">
@@ -26,7 +26,7 @@
       <div slot="header" class="clearfix" >
         <div>
           <span style="float:left ">  {{passenger.name}}</span>
-          <el-button style="float: right; padding: 3px ;font-size: 10px" type="text" @click="del(passenger)">删除   </el-button>
+          <el-button style="float: right; padding: 3px ;font-size: 80%" type="text" @click="del(passenger)">删除   </el-button>
         </div>
       </div>
 

@@ -3,7 +3,7 @@
     <el-card v-for="notice in notices" class="el-card" :key="notice.notice_id">
       <div slot="header" class="clearfix" >
         <div>
-          <span style="float:left ;font-size: 10px">  {{notice.notice_time}}</span>
+          <span style="float:left ;font-size: 80%">  {{notice.notice_time}}</span>
         </div>
       </div>
 

@@ -4,10 +4,10 @@
     <el-card v-for="deal in deals" class="el-card" :key="deal.deal_id">
       <div slot="header" class="clearfix" style="">
         <div style="">
-          <span style="float: left;font-size: 10px;">
+          <span style="float: left;font-size: 80%;">
                       订单号: {{deal.deal_id}}
           </span>
-          <span style="float: left;font-size: 10px;margin-left: 10px">
+          <span style="float: left;font-size: 80%;margin-left: 10px">
                       ￥{{deal.price}}
           </span>
 
@@ -17,10 +17,10 @@
             width="200"
             trigger="hover"
             :content="deal.passenger.id_number">
-            <el-button slot="reference" style="float: right; padding: 3px ;font-size: 10px" type="text" >乘客信息</el-button>
+            <el-button slot="reference" style="float: right; padding: 3px ;font-size: 80%" type="text" >乘客信息</el-button>
           </el-popover>
 
-          <span style="float: right;font-size: 10px;margin-right: 10px">
+          <span style="float: right;font-size: 80%;margin-right: 10px">
                       订单完成时间: {{deal.time}}
           </span>
         </div>
@@ -29,14 +29,14 @@
 <!--      第一程-->
       <div>
 
-        <el-button style="float: right; padding: 3px ;font-size: 10px" type="text" @click="change(deal,0)">改签   </el-button>
+        <el-button style="float: right; padding: 3px ;font-size: 80%" type="text" @click="change(deal,0)">改签   </el-button>
         <div >
           {{deal.tickets[0].plane.start_city}} ({{deal.tickets[0].plane.departure_airfield}})--- {{deal.tickets[0].plane.end_city}}({{deal.tickets[0].plane.arrival_airfield}})
         </div>
 
         <div class="dd">
-          <el-button style="float: right; padding: 3px ;font-size: 10px" type="text" @click="refund(deal,deal.tickets[0])">退票   </el-button>
-        <span style="font-size: 10px ">
+          <el-button style="float: right; padding: 3px ;font-size: 80%" type="text" @click="refund(deal,deal.tickets[0])">退票   </el-button>
+        <span style="font-size: 80% ">
         出发时间:{{deal.tickets[0].plane.start_day}} {{deal.tickets[0].plane.start_time}} &nbsp;&nbsp;到达时间:{{deal.tickets[0].plane.end_day}} {{deal.tickets[0].plane.end_time}}
         </span>
         </div>
@@ -49,12 +49,12 @@
 
         <div style="background-color: #e8eeef; height: 1pt;"></div>
         <div style="margin-top: 15px">
-          <el-button style="float: right; padding: 3px ;font-size: 10px" type="text" @click="change(deal,1)">改签   </el-button>
+          <el-button style="float: right; padding: 3px ;font-size: 80%" type="text" @click="change(deal,1)">改签   </el-button>
           {{deal.tickets[1].plane.start_city}} ({{deal.tickets[1].plane.departure_airfield}})--- {{deal.tickets[1].plane.end_city}}({{deal.tickets[1].plane.arrival_airfield}})
         </div>
 
-        <div class="dd">          <el-button style="float: right; padding: 3px ;font-size: 10px" type="text" @click="refund(deal,deal.tickets[1])">退票   </el-button>
-          <span style="font-size: 10px ">
+        <div class="dd">          <el-button style="float: right; padding: 3px ;font-size: 80%" type="text" @click="refund(deal,deal.tickets[1])">退票   </el-button>
+          <span style="font-size: 80% ">
             出发时间:{{deal.tickets[1].plane.start_day}} {{deal.tickets[1].plane.start_time}} &nbsp;&nbsp;到达时间:{{deal.tickets[1].plane.end_day}} {{deal.tickets[1].plane.end_time}}
           </span>
         </div>
