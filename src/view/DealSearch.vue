@@ -45,7 +45,9 @@
       <div>
         <div style="float: right; padding: 3px ;font-size: 80% ; color: #7f91a4" v-if="deal.pay==='NO'">已退款</div>
         <div >
-          {{deal.tickets[0].plane.start_city}} ({{deal.tickets[0].plane.departure_airfield}})--- {{deal.tickets[0].plane.end_city}}({{deal.tickets[0].plane.arrival_airfield}})
+          {{deal.tickets[0].plane.start_city}} ({{deal.tickets[0].plane.departure_airfield}})<span>
+            <img src="../image/bow.svg"  style="width: 1%; height: auto;">
+          </span> {{deal.tickets[0].plane.end_city}}({{deal.tickets[0].plane.arrival_airfield}})
         </div>
 
         <div class="dd">
@@ -62,7 +64,9 @@
 
         <div style="background-color: #e8eeef; height: 1pt;"></div>
         <div style="margin-top: 15px">
-          {{deal.tickets[1].plane.start_city}} ({{deal.tickets[1].plane.departure_airfield}})--- {{deal.tickets[1].plane.end_city}}({{deal.tickets[1].plane.arrival_airfield}})
+          {{deal.tickets[1].plane.start_city}} ({{deal.tickets[1].plane.departure_airfield}})<span>
+            <img src="../image/bow.svg"  style="width: 1%; height: auto;">
+          </span> {{deal.tickets[1].plane.end_city}}({{deal.tickets[1].plane.arrival_airfield}})
         </div>
 
         <div class="dd">

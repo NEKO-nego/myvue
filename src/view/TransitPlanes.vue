@@ -16,7 +16,10 @@
 
         <el-col class="col" :span="8">
           <span style="font-size: 20px">{{message.planes1.end_city}}</span><span style="font-size: 10px">&nbsp;&nbsp;({{message.planes2.departure_airfield}})</span><br>
-          <span style="font-size: 10px">{{message.planes1.end_day}} {{message.planes1.end_time}}</span>&nbsp;---
+          <span style="font-size: 10px">{{message.planes1.end_day}} {{message.planes1.end_time}}</span>&nbsp;
+          <span>
+            <img src="../image/bow.svg"  style="width: 2%; height: auto;">
+          </span>
           <span style="font-size: 10px">{{message.planes2.start_day}} {{message.planes2.start_time}}</span>
         </el-col>
 

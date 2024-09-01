@@ -111,7 +111,7 @@ export default {
                 });
                 console.log(sessionStorage.getItem("id"));
                 console.log(sessionStorage.getItem("root"));
-                this.$router.push({ path: "/search" });
+                this.$router.push({ path: "/personal" });
               } else {
                 this.logining = false;
                 console.log(this.suc);

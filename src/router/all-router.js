@@ -24,122 +24,145 @@ import ChangeTicket from "../view/ChangeTicket";
 import ChangeAnyTicket from "../view/ChangeAnyTicket";
 import DealSearch from "../view/DealSearch";
 import Record from "../view/Record";
+import BookSeats from "../view/BookSeats";  // 导入 BookSeats 组件
+
 Vue.use(Router);
 
 export default new Router({
-  routes:[{
-    path:'/login',
-    component:Login,
-    name:Login
-  },{
-    path:'/search',
-    component:Search,
-    name:Search
-  },{
-    path:'/plane',
-    component:Plane,
-    name:'Plane'
-  },{
-    path:'/ticket',
-    component:Ticket,
-    name:'Ticket'
-  },{
-    path:'/transitTicket',
-    component:TransitTicket,
-    name:'TransitTicket'
-  },
-
+  routes: [
     {
-    path:'/personal',
-    component:Personal,
-    name:'Personal',
-    children:[{
-      path:'/dealPaid',
-      component:DealPaid,
-      name:'DealPaid',
-    },{
-      path:'/dealUnpaid',
-      component:DealUnpaid,
-      name:'DealUnpaid',
-    },{
-      path:'/passengerInfo',
-      component:PassengerInfo,
-      name:'PassengerInfo',
-    },{
-      path:'/personalNotice',
-      component:PersonalNotice,
-      name:'PersonalNotice',
-    },{
-      path:'/record',
-      component:Record,
-      name:'Record',
-    },{
-      path:'/refresh',
-      component:Refresh,
-      name:'Refresh',
-    },{
-      path:'/changePlane',
-      component:ChangePlane,
-      name:'ChangePlane',
-    },{
-      path:'/changeAnyPlane',
-      component:ChangeAnyPlane,
-      name:'ChangeAnyPlane',
-    },{
-      path:'/changeAnyPlaneIn',
-      component:ChangeAnyPlaneIn,
-      name:'ChangeAnyPlaneIn',
-    },{
-      path:'/changeTicket',
-      component:ChangeTicket,
-      name:'ChangeTicket',
-    },{
-      path:'/changeAnyTicket',
-      component:ChangeAnyTicket,
-      name:'ChangeAnyTicket',
-    }
-    ]
-  }
-
-  ,{
-    path:'/pay',
-    component:Pay,
-    name:'Pay',
-  },
-    {
-      path:'/transitPay',
-      component:TransitPay,
-      name:'TransitPay',
+      path: '/login',
+      component: Login,
+      name: 'Login'
     },
-
-
     {
-      path:'/root',
-      component:Root,
-      name:'Root',
-      children:[
-          {
-           path:'/deletePlane',
-           component:DeletePlane,
-            name:'DeletePlane',
-        },{
-          path:'/addPlane',
-          component:AddPlane,
-          name:'AddPlane',
-        },{
-          path:'/dealSearch',
-          component:DealSearch,
-          name:'DealSearch',
-        },{
-          path:'/refresh',
-          component:Refresh,
-        },{
-          path:'/deleteAnyPlane',
-          component:DeleteAnyPlane,
-          name:'DeleteAnyPlane',
+      path: '/search',
+      component: Search,
+      name: 'Search'
+    },
+    {
+      path: '/plane',
+      component: Plane,
+      name: 'Plane'
+    },
+    {
+      path: '/ticket',
+      component: Ticket,
+      name: 'Ticket'
+    },
+    {
+      path: '/transitTicket',
+      component: TransitTicket,
+      name: 'TransitTicket'
+    },
+    {
+      path: '/personal',
+      component: Personal,
+      name: 'Personal',
+      children: [
+        {
+          path: '/dealPaid',
+          component: DealPaid,
+          name: 'DealPaid',
+        },
+        {
+          path: '/dealUnpaid',
+          component: DealUnpaid,
+          name: 'DealUnpaid',
+        },
+        {
+          path: '/passengerInfo',
+          component: PassengerInfo,
+          name: 'PassengerInfo',
+        },
+        {
+          path: '/personalNotice',
+          component: PersonalNotice,
+          name: 'PersonalNotice',
+        },
+        {
+          path: '/record',
+          component: Record,
+          name: 'Record',
+        },
+        {
+          path: '/refresh',
+          component: Refresh,
+          name: 'Refresh',
+        },
+        {
+          path: '/changePlane',
+          component: ChangePlane,
+          name: 'ChangePlane',
+        },
+        {
+          path: '/changeAnyPlane',
+          component: ChangeAnyPlane,
+          name: 'ChangeAnyPlane',
+        },
+        {
+          path: '/changeAnyPlaneIn',
+          component: ChangeAnyPlaneIn,
+          name: 'ChangeAnyPlaneIn',
+        },
+        {
+          path: '/changeTicket',
+          component: ChangeTicket,
+          name: 'ChangeTicket',
+        },
+        {
+          path: '/changeAnyTicket',
+          component: ChangeAnyTicket,
+          name: 'ChangeAnyTicket',
         }
       ]
     },
-
+    {
+      path: '/pay',
+      component: Pay,
+      name: 'Pay',
+    },
+    {
+      path: '/transitPay',
+      component: TransitPay,
+      name: 'TransitPay',
+    },
+    {
+      path: '/root',
+      component: Root,
+      name: 'Root',
+      children: [
+        {
+          path: '/deletePlane',
+          component: DeletePlane,
+          name: 'DeletePlane',
+        },
+        {
+          path: '/addPlane',
+          component: AddPlane,
+          name: 'AddPlane',
+        },
+        {
+          path: '/dealSearch',
+          component: DealSearch,
+          name: 'DealSearch',
+        },
+        {
+          path: '/refresh',
+          component: Refresh,
+          name: 'Refresh',
+        },
+        {
+          path: '/deleteAnyPlane',
+          component: DeleteAnyPlane,
+          name: 'DeleteAnyPlane',
+        }
+      ]
+    },
+    {
+      path: '/bookSeats',  
+      component: BookSeats,
+      name: 'BookSeats'
+    }
   ]
 })
