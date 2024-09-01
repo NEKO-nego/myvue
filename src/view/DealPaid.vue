@@ -110,7 +110,16 @@ export default {
     });
   },
   methods: {
-    bookSeats(deal) {
+  bookSeats(deal) {
+    const currentDateTime = new Date(); // 获取当前时间
+    const startDateTimeStr = `${deal.tickets[0].plane.start_day} ${deal.tickets[0].plane.start_time}`;
+    const startDateTime = new Date(startDateTimeStr); // 将出发日期时间字符串转换为 Date 对象
+
+    if (startDateTime < currentDateTime) {
+      this.$alert('该航班已过期，无法订座', '提示', {
+        confirmButtonText: '确定'
+      });
+    } else {
       console.log('Deal object in bookSeats:', deal); // 确认 deal 对象的内容
       console.log('Deal ID in bookSeats:', deal.deal_id); // 输出 deal_id
       // 处理订座位的逻辑，比如跳转到座位预定页面
@@ -120,8 +129,18 @@ export default {
           deal: deal
         }
       });
-    },
-    change(deal, index) {
+    }
+  },
+  change(deal, index) {
+    const currentDateTime = new Date(); // 获取当前时间
+    const startDateTimeStr = `${deal.tickets[index].plane.start_day} ${deal.tickets[index].plane.start_time}`;
+    const startDateTime = new Date(startDateTimeStr); // 将出发日期时间字符串转换为 Date 对象
+
+    if (startDateTime < currentDateTime) {
+      this.$alert('该航班已过期，无法改签', '提示', {
+        confirmButtonText: '确定'
+      });
+    } else {
       console.log('Deal object in change:', deal); // 确认 deal 对象的内容
       console.log('Deal ID in change:', deal.deal_id); // 输出 deal_id
       this.$router.push({
@@ -131,8 +150,18 @@ export default {
           index: index
         }
       });
-    },
-    refund(deal, ticket) {
+    }
+  },
+  refund(deal, ticket) {
+    const currentDateTime = new Date(); // 获取当前时间
+    const startDateTimeStr = `${ticket.plane.start_day} ${ticket.plane.start_time}`;
+    const startDateTime = new Date(startDateTimeStr); // 将出发日期时间字符串转换为 Date 对象
+
+    if (startDateTime < currentDateTime) {
+      this.$alert('该航班已过期，无法退票', '提示', {
+        confirmButtonText: '确定'
+      });
+    } else {
       if (deal.attribute === 'direct') {
         axios.post('/addDealRecord', {
           data: {
@@ -202,9 +231,11 @@ export default {
           console.log(error);
         });
       }
-    },
-    
-  }
+    }
+  },
+}
+
+
 }
 </script>
 

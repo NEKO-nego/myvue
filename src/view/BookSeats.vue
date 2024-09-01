@@ -29,7 +29,7 @@
           <div
             v-for="(seat, index) in seatsArray.slice(0, 40)"
             :key="index"
-            :class="['seat', seat ? 'occupied' : 'available']"
+            :class="['seat', seat ? (myseat.includes(index) ? 'my-seat':'occupied'):  'available']"
             @click="selectSeat(index)"
           >
             {{ index }}
@@ -39,7 +39,7 @@
           <div
             v-for="(seat, index) in seatsArray.slice(40)"
             :key="index + 40"
-            :class="['seat', seat ? 'occupied' : 'available']"
+            :class="['seat', seat ? 'occupied' : (myseat.includes(index + 40) ? 'my-seat' : 'available')]"
             @click="selectSeat(index + 40)"
           >
             {{ index + 40 }}
@@ -59,20 +59,29 @@ export default {
     return {
       deal_id: '', // 初始化为空字符串
       seatNumber: '', // 用户输入的座位号
-      seatsArray: [] // 存储座位情况的布尔数组
+      seatsArray: [], // 存储座位情况的布尔数组
+      myseat: [] // 存储本人座位的数组
     };
   },
   mounted() {
-    // 确保 deal_id 被正确读取
+  // 先检查 this.$route.query.deal 是否存在，然后获取 deal_id
+  if (this.$route.query.deal && this.$route.query.deal.deal_id) {
     this.deal_id = this.$route.query.deal.deal_id;
-    console.log('Deal ID:', this.deal_id); // 打印 deal_id
+  } else {
+    this.deal_id = sessionStorage.getItem('deal_id');
+  }
+  console.log('Deal ID:', this.deal_id);
 
-    if (!this.deal_id) {
-      this.$alert('未找到有效的订单号', '错误', {
-        confirmButtonText: '确定'
-      });
-    }
-  },
+  if (this.deal_id) {
+    // 存储 deal_id 到 sessionStorage
+    sessionStorage.setItem('deal_id', this.deal_id);
+  } else {
+    this.$alert('未找到有效的订单号', '错误', {
+      confirmButtonText: '确定'
+    });
+  }
+}
+,
   methods: {
     submitSeatBooking() {
       // 验证座位号是否有效
@@ -81,6 +90,16 @@ export default {
           confirmButtonText: '确定'
         });
         return;
+      }
+      console.log("此处："+this.myseat + "=" + this.seatNumber)
+      if (!(this.myseat.length === 0 )){
+        console.log("此处替换")
+        axios.post('/updateSeatAndPlane', {
+        data: {
+          deal_id: `${this.deal_id}`,
+          seat:null
+        }
+      })
       }
 
       // 发送座位预定请求
@@ -120,6 +139,21 @@ export default {
       .catch((error) => {
         console.log(error);
         this.$alert('获取座位情况失败，请重试', '错误', {
+          confirmButtonText: '确定'
+        });
+      });
+
+      // 获取自己的座位的位置
+      axios.post('/getMyseat', {
+        planeId: this.deal_id // 使用deal_id作为planeId进行请求
+      })
+      .then((response) => {
+        this.myseat = response.data; // 更新本人的座位数据
+        console.log("本人的座位情况：" + this.myseat);
+      })
+      .catch((error) => {
+        console.log(error);
+        this.$alert('获取本人座位情况失败，请重试', '错误', {
           confirmButtonText: '确定'
         });
       });
@@ -198,6 +232,12 @@ export default {
 /* 可用的座位样式 */
 .available {
   background-color: green;
+  color: white;
+}
+
+/* 本人座位的样式 */
+.my-seat {
+  background-color: orange;
   color: white;
 }
 </style>
