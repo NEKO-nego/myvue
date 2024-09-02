@@ -24,7 +24,8 @@ import ChangeTicket from "../view/ChangeTicket";
 import ChangeAnyTicket from "../view/ChangeAnyTicket";
 import DealSearch from "../view/DealSearch";
 import Record from "../view/Record";
-import BookSeats from "../view/BookSeats";  // 导入 BookSeats 组件
+import BookSeats from "../view/BookSeats";  
+import searchPersonal from "../view/searchPersonal";  
 
 Vue.use(Router);
 
@@ -114,7 +115,12 @@ export default new Router({
           path: '/changeAnyTicket',
           component: ChangeAnyTicket,
           name: 'ChangeAnyTicket',
-        }
+        },
+        {
+          path: '/searchPersonal',
+          component: searchPersonal,
+          name: 'searchPersonal',
+        },
       ]
     },
     {

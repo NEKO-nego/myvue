@@ -29,9 +29,9 @@
           <div
             v-for="(seat, index) in seatsArray.slice(0, 40)"
             :key="index"
-            :class="['seat', seat ? (myseat.includes(index) ? 'my-seat':'occupied'):  'available']"
+            :class="getSeatClass(index)"
             @click="selectSeat(index)"
-          >
+            >
             {{ index }}
           </div>
         </div>
@@ -39,10 +39,10 @@
           <div
             v-for="(seat, index) in seatsArray.slice(40)"
             :key="index + 40"
-            :class="['seat', seat ? 'occupied' : (myseat.includes(index + 40) ? 'my-seat' : 'available')]"
+            :class="getSeatClass(index + 40)"
             @click="selectSeat(index + 40)"
           >
-            {{ index + 40 }}
+          {{ index + 40 }}
           </div>
         </div>
       </div>
@@ -83,6 +83,17 @@ export default {
 }
 ,
   methods: {
+
+    getSeatClass(index) {
+    if (this.myseat.includes(index)) {
+      return 'seat my-seat'; // 本人的座位
+    } else if (this.seatsArray[index]) {
+      return 'seat occupied'; // 已占用的座位
+    } else {
+      return 'seat available'; // 可用的座位
+    }
+  },
+
     submitSeatBooking() {
       // 验证座位号是否有效
       if (this.seatNumber === '' || this.seatNumber < 0 || this.seatNumber > 99) {
@@ -129,35 +140,40 @@ export default {
       });
     },
     getSeatsAvailability() {
-      axios.post('/getSeatsArray', {
-        planeId: this.deal_id // 使用deal_id作为planeId进行请求
-      })
-      .then((response) => {
-        this.seatsArray = response.data; // 保存返回的布尔数组
-        console.log("排座情况：" + this.seatsArray);
-      })
-      .catch((error) => {
-        console.log(error);
-        this.$alert('获取座位情况失败，请重试', '错误', {
-          confirmButtonText: '确定'
-        });
-      });
+  axios.post('/getSeatsArray', {
+    planeId: this.deal_id // 使用deal_id作为planeId进行请求
+  })
+  .then((response) => {
+    this.seatsArray = response.data; // 保存返回的布尔数组
+    console.log("排座情况：" + this.seatsArray);
+  })
+  .catch((error) => {
+    console.log(error);
+    this.$alert('获取座位情况失败，请重试', '错误', {
+      confirmButtonText: '确定'
+    });
+  });
 
-      // 获取自己的座位的位置
-      axios.post('/getMyseat', {
-        planeId: this.deal_id // 使用deal_id作为planeId进行请求
-      })
-      .then((response) => {
-        this.myseat = response.data; // 更新本人的座位数据
-        console.log("本人的座位情况：" + this.myseat);
-      })
-      .catch((error) => {
-        console.log(error);
-        this.$alert('获取本人座位情况失败，请重试', '错误', {
-          confirmButtonText: '确定'
-        });
-      });
+  // 获取自己的座位的位置
+  axios.post('/getMyseat', {
+    planeId: this.deal_id // 使用deal_id作为planeId进行请求
+  })
+  .then((response) => {
+    this.myseat = response.data; // 更新本人的座位数据
+    console.log("本人的座位情况：" + this.myseat);
+    // 显示悬浮消息通知用户
+    this.$alert(`本人的座位情况: ${this.myseat.join(', ')}`, '信息', {
+      confirmButtonText: '确定'
+    });
+  })
+  .catch((error) => {
+    console.log(error);
+    this.$alert('获取本人座位情况失败，请重试', '错误', {
+      confirmButtonText: '确定'
+    });
+  });
     },
+
     selectSeat(index) {
       this.seatNumber = index;
       this.$alert(`您已选择座位号: ${index}`, '信息', {

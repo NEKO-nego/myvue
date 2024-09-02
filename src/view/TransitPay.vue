@@ -115,20 +115,39 @@ export default {
       });
       // 向订单表中插入一条数据,并向deal_ticket表中插入订单和飞机票的绑定信息，并更新飞机票中的余票数
       axios.post('/pay2', {
-        data:{
-          price:encodeURI(this.p.price),
-          attribute:encodeURI("transit"),
-          id:encodeURI(sessionStorage.getItem("id")),
-          id_number:encodeURI(this.info.id),
-          ticket_id1:encodeURI(this.p.ticket_id1),
-          ticket_id2:encodeURI(this.p.ticket_id2),
-          time:new Date().Format("yyyy-MM-dd hh:mm:ss")
-        }
-      }).then((response)=> {
-        console.log(response);
+        data: {
+        price: encodeURI(this.p.price),
+        attribute: encodeURI("transit"),
+        id: encodeURI(sessionStorage.getItem("id")),
+        id_number: encodeURI(this.info.id),
+        ticket_id1: encodeURI(this.p.ticket_id1),
+        ticket_id2: encodeURI(this.p.ticket_id2),
+        time: new Date().Format("yyyy-MM-dd hh:mm:ss")
+      }
+      }).then((response) => {
+      console.log('Received form HTML:', response.data);
+
+      // 创建一个 div 元素，将表单 HTML 插入到 div 中
+      const div = document.createElement('div');
+      div.id = 'paymentDiv2'; // 为 div 设置一个新的 ID，便于调试
+      div.style.display = 'none'; // 隐藏 div
+      div.innerHTML = response.data;
+      // 将 div 添加到文档的 body 中
+      document.body.appendChild(div);
+      console.log('Form appended to the body');
+
+      // 获取表单元素并提交
+      const form = div.querySelector('form');
+      if (form) {
+        form.submit(); // 提交表单
+        console.log('Form submitted');
+      } else {
+       console.error('Form not found in the appended HTML');
+      }
       }).catch(function (error) {
-        console.log(error);
+      console.error('出错了:', error); // 输出错误信息
       });
+
       // 添加乘客信息并加入用户-乘客信息绑定表，将乘客信息绑定给该用户
       axios.post('/addPassenger', {
         data:{
@@ -164,7 +183,7 @@ export default {
       });
       //在已有乘客信息的情况下，向订单表中插入一条数据
       axios.post('/pay2', {
-        data:{
+        data: {
           id_number:encodeURI(document.getElementsByClassName(this.radio)[0].innerText),
           price:encodeURI(this.p.price),
           attribute:encodeURI("transit"),
@@ -172,14 +191,29 @@ export default {
           ticket_id1:encodeURI(this.p.ticket_id1),
           ticket_id2:encodeURI(this.p.ticket_id2),
           time:new Date().Format("yyyy-MM-dd hh:mm:ss")
-        }
-      }).then((response)=> {
-        if(response.data){
-          this.$alert('支付成功', '信息', {
-            confirmButtonText: '确定'
-          });}
+      }
+      }).then((response) => {
+      console.log('Received form HTML:', response.data);
+
+      // 创建一个 div 元素，将表单 HTML 插入到 div 中
+      const div = document.createElement('div');
+      div.id = 'paymentDiv2'; // 为 div 设置一个新的 ID，便于调试
+      div.style.display = 'none'; // 隐藏 div
+      div.innerHTML = response.data;
+      // 将 div 添加到文档的 body 中
+      document.body.appendChild(div);
+      console.log('Form appended to the body');
+
+      // 获取表单元素并提交
+      const form = div.querySelector('form');
+      if (form) {
+        form.submit(); // 提交表单
+        console.log('Form submitted');
+      } else {
+       console.error('Form not found in the appended HTML');
+      }
       }).catch(function (error) {
-        console.log(error);
+      console.error('出错了:', error); // 输出错误信息
       });
 
       this.$router.push({path:'/search'});

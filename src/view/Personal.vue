@@ -32,9 +32,9 @@
                 </el-menu-item-group>
               </el-submenu>
 
-              <el-menu-item index="/passengerInfo">
-                <i class="el-icon-menu"></i>
-                <span slot="title">乘客信息</span>
+              <el-menu-item index="/record">
+                <img src="../image/pass.svg" alt="交易记录" style="width: 20px; height: 20px;"/>
+                <span slot="title">交易记录</span>
               </el-menu-item>
 
               <el-menu-item index="/personalNotice">
@@ -43,8 +43,13 @@
               </el-menu-item>
 
               <el-menu-item index="/record">
-                <i class="el-icon-menu"></i>
+                <img src="../image/ping.svg" alt="交易记录" style="width: 20px; height: 20px;"/>
                 <span slot="title">交易记录</span>
+              </el-menu-item>
+
+              <el-menu-item index="/searchPersonal">
+                <i class="el-icon-menu"></i>
+                <span slot="title">订单查询</span>
               </el-menu-item>
             </el-menu>
           </div>
