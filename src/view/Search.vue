@@ -11,7 +11,11 @@
 
             <el-col :span="9">
               <div class="city2">
-                <el-input :rules="rules" class="ipt" v-model="cities.input1" placeholder="请输入出发地"></el-input>
+                <el-autocomplete
+                v-model="cities.input1"
+                :fetch-suggestions="querySearch"
+                placeholder="输入城市名称"
+                ></el-autocomplete>
               </div>
             </el-col>
 
@@ -26,7 +30,11 @@
 
             <el-col :span="9">
               <div class="city2">
-                <el-input :rules="rules" class="ipt" v-model="cities.input2" placeholder="请输入目的地"></el-input>
+                <el-autocomplete
+                v-model="cities.input2"
+                :fetch-suggestions="querySearch"
+                placeholder="输入城市名称"
+                ></el-autocomplete>
               </div>
             </el-col>
 
@@ -58,6 +66,7 @@ export default {
   name: "Search",
   data() {
     return {
+      cityOptions: [],
       cities:{
         input1:"北京",
         input2:"上海"
@@ -83,6 +92,29 @@ export default {
     };
   },
   methods:{
+
+    async getAllCities() {
+      try {
+        const response = await axios.post("/getAllCities");
+        this.cityOptions = response.data;
+        console.log(this.cityOptions)
+      } catch (error) {
+        console.error("Failed to fetch cities:", error);
+      }
+    },
+    querySearch(queryString, cb) {
+      console.log('Query:', queryString);
+      const results = queryString
+        ? this.cityOptions.filter((city) =>
+        city.toLowerCase().includes(queryString.toLowerCase())
+      )
+      : this.cityOptions;
+      const formattedResults = results.map(city => ({ value: city }));
+
+      console.log('Formatted Results:', formattedResults);
+      cb(formattedResults);
+    },
+
     searchHandler(){
       this.$refs.cities.validate((valid) => {
         if(valid){
@@ -104,7 +136,11 @@ export default {
       this.cities.input2 = temp;
     },
 
-  }
+  },
+
+  mounted() {
+    this.getAllCities(); // Fetch all cities on component mount
+  },
 }
 
 

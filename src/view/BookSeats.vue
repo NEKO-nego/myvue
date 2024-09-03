@@ -82,9 +82,8 @@ export default {
   }
 }
 ,
-  methods: {
-
-    getSeatClass(index) {
+methods: {
+  getSeatClass(index) {
     if (this.myseat.includes(index)) {
       return 'seat my-seat'; // 本人的座位
     } else if (this.seatsArray[index]) {
@@ -94,93 +93,102 @@ export default {
     }
   },
 
-    submitSeatBooking() {
-      // 验证座位号是否有效
-      if (this.seatNumber === '' || this.seatNumber < 0 || this.seatNumber > 99) {
-        this.$alert('请输入有效的座位号（0-99）', '警告', {
-          confirmButtonText: '确定'
-        });
-        return;
-      }
-      console.log("此处："+this.myseat + "=" + this.seatNumber)
-      if (!(this.myseat.length === 0 )){
-        console.log("此处替换")
-        axios.post('/updateSeatAndPlane', {
-        data: {
-          deal_id: `${this.deal_id}`,
-          seat:null
-        }
-      })
-      }
-
-      // 发送座位预定请求
+  submitSeatBooking() {
+    // 验证座位号是否有效
+    if (this.seatNumber === '' || this.seatNumber < 0 || this.seatNumber > 99) {
+      this.$alert('请输入有效的座位号（0-99）', '警告', {
+        confirmButtonText: '确定'
+      });
+      return;
+    }
+    console.log("此处：" + this.myseat + "=" + this.seatNumber)
+    if (!(this.myseat.length === 0)) {
+      console.log("此处替换")
       axios.post('/updateSeatAndPlane', {
         data: {
           deal_id: `${this.deal_id}`,
-          seat: this.seatNumber
+          seat: null
         }
       })
-      .then((response) => {
-        if (response.data) {
-          this.$alert('座位预定成功', '信息', {
-            confirmButtonText: '确定'
-          });
-          this.$router.push({ path: '/refresh' });
-        } else {
-          this.$alert('座位预定失败', '信息', {
-            confirmButtonText: '确定'
-          });
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-        this.$alert('发生错误，请重试', '错误', {
+    }
+
+    // 发送座位预定请求
+    axios.post('/updateSeatAndPlane', {
+      data: {
+        deal_id: `${this.deal_id}`,
+        seat: this.seatNumber
+      }
+    })
+    .then((response) => {
+      if (response.data) {
+        this.$alert('座位预定成功', '信息', {
           confirmButtonText: '确定'
         });
+        this.$router.push({ path: '/refresh' });
+      } else {
+        this.$alert('座位预定失败', '信息', {
+          confirmButtonText: '确定'
+        });
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+      this.$alert('发生错误，请重试', '错误', {
+        confirmButtonText: '确定'
       });
-    },
-    getSeatsAvailability() {
-  axios.post('/getSeatsArray', {
-    planeId: this.deal_id // 使用deal_id作为planeId进行请求
-  })
-  .then((response) => {
-    this.seatsArray = response.data; // 保存返回的布尔数组
-    console.log("排座情况：" + this.seatsArray);
-  })
-  .catch((error) => {
-    console.log(error);
-    this.$alert('获取座位情况失败，请重试', '错误', {
-      confirmButtonText: '确定'
     });
-  });
+  },
+  
+  getSeatsAvailability() {
+    axios.post('/getSeatsArray', {
+      planeId: this.deal_id // 使用deal_id作为planeId进行请求
+    })
+    .then((response) => {
+      this.seatsArray = response.data; // 保存返回的布尔数组
+      console.log("排座情况：" + this.seatsArray);
+    })
+    .catch((error) => {
+      console.log(error);
+      this.$alert('获取座位情况失败，请重试', '错误', {
+        confirmButtonText: '确定'
+      });
+    });
 
-  // 获取自己的座位的位置
-  axios.post('/getMyseat', {
-    planeId: this.deal_id // 使用deal_id作为planeId进行请求
-  })
-  .then((response) => {
-    this.myseat = response.data; // 更新本人的座位数据
-    console.log("本人的座位情况：" + this.myseat);
-    // 显示悬浮消息通知用户
-    this.$alert(`本人的座位情况: ${this.myseat.join(', ')}`, '信息', {
-      confirmButtonText: '确定'
+    // 获取自己的座位的位置
+    axios.post('/getMyseat', {
+      planeId: this.deal_id // 使用deal_id作为planeId进行请求
+    })
+    .then((response) => {
+      this.myseat = response.data; // 更新本人的座位数据
+      console.log("本人的座位情况：" + this.myseat);
+      // 显示悬浮消息通知用户
+      this.$alert(`本人的座位情况: ${this.myseat.join(', ')}`, '信息', {
+        confirmButtonText: '确定'
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+      this.$alert('获取本人座位情况失败，请重试', '错误', {
+        confirmButtonText: '确定'
+      });
     });
-  })
-  .catch((error) => {
-    console.log(error);
-    this.$alert('获取本人座位情况失败，请重试', '错误', {
-      confirmButtonText: '确定'
-    });
-  });
-    },
+  },
 
-    selectSeat(index) {
+  selectSeat(index) {
+    // 判断座位是否被占用
+    if (this.seatsArray[index]) {
+      this.$alert('该座位已被占用，请选择其他座位', '警告', {
+        confirmButtonText: '确定'
+      });
+    } else {
       this.seatNumber = index;
       this.$alert(`您已选择座位号: ${index}`, '信息', {
         confirmButtonText: '确定'
       });
     }
   }
+}
+
 }
 </script>
 
