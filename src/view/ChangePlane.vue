@@ -32,7 +32,7 @@
                       placeholder="选择日期" :picker-options="pickerOptions">
       </el-date-picker>
 
-      <el-button style="background-color: #8d9fb7 ;border-color: #8d9fb7" id="search" type="info" @click="searchHandler(deal,index)">查询</el-button>
+      <el-button style="border-color: #8d9fb7" id="search" type="info" @click="searchHandler(deal,index)">查询</el-button>
     </div>
 
 

@@ -14,7 +14,7 @@
         </el-form-item>
 
         <el-form-item>
-          <el-button type="primary" @click="onSubmit" style="background-color: #8d9fb7 ;border-color: #8d9fb7">添加</el-button>
+          <el-button type="primary" @click="onSubmit" style="border-color: #8d9fb7">添加</el-button>
         </el-form-item>
 
       </el-form>

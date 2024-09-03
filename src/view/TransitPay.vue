@@ -20,7 +20,7 @@
 
           <el-form-item>
             <label style="font-size: 20px ">￥ {{this.$route.query.price}}&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <el-button type="primary" @click="onSubmit1()" style="background-color: #8d9fb7 ;border-color: #8d9fb7">支付</el-button>
+            <el-button type="primary" @click="onSubmit1()" style="border-color: #8d9fb7">支付</el-button>
           </el-form-item>
 
         </el-form>
@@ -36,7 +36,7 @@
 
           <el-form-item>
             <label style="font-size: 20px ">￥ {{this.$route.query.price}}&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <el-button type="primary" @click="onSubmit2()" style="background-color: #8d9fb7 ;border-color: #8d9fb7">支付</el-button>
+            <el-button type="primary" @click="onSubmit2()" style="border-color: #8d9fb7">支付</el-button>
           </el-form-item>
 
         </el-form>

@@ -45,7 +45,6 @@
   </div>
 </template>
 
-
 <script>
 import axios from "axios";
 
@@ -62,14 +61,14 @@ export default {
       },
       rules2: {
         username: [
-          {
-            required: true,
-            message: "请输入您的账号",
-            trigger: "blur",
-          },
+          { required: true, message: "请输入您的账号", trigger: "blur" },
+          { min: 3, max: 20, message: "用户名长度应在3到20个字符之间", trigger: "blur" },
+          { pattern: /^[a-zA-Z0-9_]+$/, message: "用户名只能包含字母、数字和下划线", trigger: "blur" }
         ],
         password: [
           { required: true, message: "请输入您的密码", trigger: "blur" },
+          { min: 6, max: 20, message: "密码长度应在6到20个字符之间", trigger: "blur" },
+          { pattern: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/, message: "密码必须包含字母和数字", trigger: "blur" }
         ],
       },
     };
@@ -98,8 +97,6 @@ export default {
                 this.$alert("登录成功", "登录成功", {
                   confirmButtonText: "ok",
                 });
-                console.log(sessionStorage.getItem("id"));
-                console.log(sessionStorage.getItem("root"));
                 this.$router.push({ path: "/root" });
               } else if (this.suc.id != null) {
                 this.logining = false;
@@ -109,12 +106,9 @@ export default {
                 this.$alert("登录成功", "登录成功", {
                   confirmButtonText: "ok",
                 });
-                console.log(sessionStorage.getItem("id"));
-                console.log(sessionStorage.getItem("root"));
                 this.$router.push({ path: "/personal" });
               } else {
                 this.logining = false;
-                console.log(this.suc);
                 this.$alert("用户名或密码错误", "登录失败", {
                   confirmButtonText: "ok",
                 });
@@ -145,7 +139,6 @@ export default {
                 this.$alert("注册成功", "注册成功", {
                   confirmButtonText: "ok",
                 });
-                // 注册成功后，可以直接跳转到登录页或首页
                 this.$router.push({ path: "/login" });
               } else {
                 this.$alert("注册失败", response.data.message || "注册失败", {
@@ -169,8 +162,6 @@ export default {
 };
 </script>
 
-
-
 <style scoped>
 @import '../assets/css/main.css';
 .login-container {
@@ -178,7 +169,6 @@ export default {
   height: 100%;
 }
 .login-page {
-  -webkit-border-radius: 5px;
   border-radius: 5px;
   margin: 180px auto;
   width: 350px;
@@ -187,14 +177,7 @@ export default {
   border: 1px solid #eaeaea;
   box-shadow: 0 0 25px #cac6c6;
 }
-label.el-checkbox {
-  margin: 0px 0px 15px;
+h3 {
   text-align: left;
 }
-h3{
-  text-align: left;
-}
-
 </style>
-
-

@@ -43,7 +43,7 @@
         </el-col>
 
         <el-col class="col" :span="2">
-          <el-button style="background-color: #8d9fb7 ;border-color: #8d9fb7" type="info" @click="preBuyHandler">预订</el-button>
+          <el-button style="border-color: #8d9fb7" type="info" @click="preBuyHandler">预订</el-button>
         </el-col>
 
       </el-row>

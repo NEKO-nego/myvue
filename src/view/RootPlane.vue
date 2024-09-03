@@ -35,7 +35,7 @@
         </el-col>
 
         <el-col class="col" :span="4">
-          <el-button style="background-color: #8d9fb7 ;border-color: #8d9fb7"  type="info" @click="delHandler(message.plane_id)">取消</el-button>
+          <el-button style="border-color: #8d9fb7"  type="info" @click="delHandler(message.plane_id)">取消</el-button>
         </el-col>
       </el-row>
     </el-card>

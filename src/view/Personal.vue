@@ -32,9 +32,9 @@
                 </el-menu-item-group>
               </el-submenu>
 
-              <el-menu-item index="/record">
+              <el-menu-item index="/passengerInfo">
                 <img src="../image/pass.svg" alt="交易记录" style="width: 20px; height: 20px;"/>
-                <span slot="title">交易记录</span>
+                <span slot="title">乘客信息</span>
               </el-menu-item>
 
               <el-menu-item index="/personalNotice">

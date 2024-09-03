@@ -10,7 +10,7 @@
         </el-input>
       </el-col>
       <el-col :span="4">
-        <el-button style="background-color: #8d9fb7 ;border-color: #8d9fb7" type="primary" @click="dealSearch">查询</el-button>
+        <el-button style="border-color: #8d9fb7" type="primary" @click="dealSearch">查询</el-button>
       </el-col>
     </el-row>
   </div>
@@ -107,7 +107,8 @@ export default {
       }else{
         axios.post('/dealSearch', {
           data:{
-            deal_id:this.input
+            deal_id:this.input,
+            id: sessionStorage.getItem("id")   
           }
         }).then((response)=> {
           if(JSON.stringify(response.data)!='[]'){
